@@ -16,10 +16,10 @@ public:
     ~Process();
 
     // Getters
-    std::string get_name();
-    std::string get_command();
+    std::string get_name() const;
+    std::string get_command() const;
     int get_limit();
-    int get_pid();
+    int get_pid() const;
 
     // Setters
     void set_limit(int limit);
