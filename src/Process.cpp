@@ -9,12 +9,12 @@ Process::~Process()
 {
 }
 
-std::string Process::get_name()
+std::string Process::get_name() const
 {
     return name_;
 }
 
-std::string Process::get_command()
+std::string Process::get_command() const
 {
     return command_;
 }
@@ -24,7 +24,7 @@ int Process::get_limit()
     return limit_;
 }
 
-int Process::get_pid()
+int Process::get_pid() const
 {
     return pid_;
 }
