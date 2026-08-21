@@ -18,7 +18,7 @@ public:
     // Getters
     std::string get_name() const;
     std::string get_command() const;
-    int get_limit();
+    int get_limit() const;
     int get_pid() const;
 
     // Setters

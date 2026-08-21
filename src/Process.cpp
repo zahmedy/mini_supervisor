@@ -19,7 +19,7 @@ std::string Process::get_command() const
     return command_;
 }
 
-int Process::get_limit()
+int Process::get_limit() const
 {
     return limit_;
 }
