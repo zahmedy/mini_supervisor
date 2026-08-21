@@ -8,5 +8,5 @@ int main()
     std::string procCommand = "init .";
     int limit = 3;
     Process root(procName, procCommand, limit);
-    std::cout << "Process: " << root.name << " Started." << "\n";
+    std::cout << "Process: " << root.get_name() << " Started." << "\n";
 }
