@@ -4,9 +4,10 @@
 
 int main()
 {
-    std::string procName = "root";
-    std::string procCommand = "init .";
+    std::string procName = "sleep";
+    std::string procCommand = "sleep 60";
     int limit = 3;
     Process root(procName, procCommand, limit);
+    root.start();
     std::cout << "Process: " << root.get_name() << " Started." << "\n";
 }
