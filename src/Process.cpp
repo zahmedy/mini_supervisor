@@ -30,17 +30,15 @@ int Process::get_pid() const
     return pid_;
 }
 
-int start(std::string cmd)
+void Process::start()
 {
-    std::stringstream ss(cmd);
+    std::stringstream ss(command_);
     std::string arg;
     std::vector<std::string> args;
     while (ss >> arg)
     {
         args.push_back(arg);
     }
-    if (args.empty())
-        return -1;
 
     // convert to C style args for execvp
     std::vector<char *> argv;
@@ -51,25 +49,14 @@ int start(std::string cmd)
     // add null pointer at the end
     argv.push_back(nullptr);
 
-    pid_t pid = fork();
+    pid_t pid_ = fork();
 
-    if (pid < 0)
-    {
-        return -1;
-    }
-    else if (pid == 0)
+    if (pid_ == 0)
     {
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
         // if execvp return an error has occured
         _exit(127);
-    }
-    else
-    {
-        // Parent process: Wait for child
-        int status;
-        waitpid(pid, &status, 0);
-        return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
     }
 }
