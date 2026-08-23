@@ -42,7 +42,7 @@ int start(std::string cmd)
     if (args.empty())
         return -1;
 
-    // convert to C style args
+    // convert to C style args for execvp
     std::vector<char *> argv;
     for (auto &s : args)
     {
