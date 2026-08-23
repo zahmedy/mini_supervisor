@@ -61,12 +61,11 @@ int Process::start()
         execvp(argv[0], argv.data());
 
         // if execvp return an error has occured
-        return 127;
+        _exit(127);
     }
     else
     {
         // parent
-        int status;
         pid_ = pid;
         return 0;
     }
