@@ -49,14 +49,25 @@ void Process::start()
     // add null pointer at the end
     argv.push_back(nullptr);
 
-    pid_t pid_ = fork();
+    pid_t pid = fork();
 
-    if (pid_ == 0)
+    if (pid < 0)
+    {
+        std::cout << "Error: child can't be created";
+    }
+    else if (pid == 0)
     {
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
         // if execvp return an error has occured
         _exit(127);
+    }
+    else
+    {
+        // parent
+        pid_ = pid;
+        std::cout << "Child process: " << pid_ << "\n";
+        return;
     }
 }
