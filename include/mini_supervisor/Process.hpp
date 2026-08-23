@@ -23,4 +23,7 @@ public:
 
     // Setters
     void set_limit(int limit);
+
+    // Methods
+    int start();
 };
