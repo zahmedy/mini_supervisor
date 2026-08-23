@@ -25,5 +25,5 @@ public:
     void set_limit(int limit);
 
     // Methods
-    void start();
+    int start();
 };

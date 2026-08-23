@@ -30,7 +30,7 @@ int Process::get_pid() const
     return pid_;
 }
 
-void Process::start()
+int Process::start()
 {
     std::stringstream ss(command_);
     std::string arg;
@@ -53,7 +53,7 @@ void Process::start()
 
     if (pid < 0)
     {
-        std::cout << "Error: child can't be created";
+        return -1;
     }
     else if (pid == 0)
     {
@@ -61,13 +61,13 @@ void Process::start()
         execvp(argv[0], argv.data());
 
         // if execvp return an error has occured
-        _exit(127);
+        return 127;
     }
     else
     {
         // parent
+        int status;
         pid_ = pid;
-        std::cout << "Child process: " << pid_ << "\n";
-        return;
+        return 0;
     }
 }
