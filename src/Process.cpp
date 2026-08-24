@@ -59,10 +59,13 @@ int Process::start()
 
     if (pid < 0)
     {
+        close(pipefd[0]);
+        close(pipefd[1]);
         return -1;
     }
     else if (pid == 0)
     {
+        close(pipefd[0]);
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
@@ -73,6 +76,7 @@ int Process::start()
     {
         // parent
         pid_ = pid;
+        close(pipefd[1]);
         return 0;
     }
 }
