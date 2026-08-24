@@ -80,8 +80,8 @@ int Process::start()
         pid_ = pid;
         char buf;
         close(pipefd[1]);
-        read(pipefd[0], &buf, 1);
-        if (buf)
+        int rv = read(pipefd[0], &buf, 1);
+        if (rv == 1)
         {
             return -1;
         }
