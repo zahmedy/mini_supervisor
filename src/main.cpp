@@ -5,14 +5,15 @@
 int main()
 {
     std::string procName = "sleep";
-    std::string procCommand = "program_non 20";
+    std::string procCommand = "notsleep 20";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.start();
     if (stat < 0)
     {
-        std::cout << "Process: " << root.get_name() << " failed to start." << "\n";
+        std::cout << "Process: " << root.get_name() << " failed to run." << "\n";
+        return stat;
     }
-    std::cout << "Process: " << root.get_name() << " Started." << "\n";
+    std::cout << "Process: " << root.get_name() << " ran." << "\n";
     return stat;
 }
