@@ -49,6 +49,12 @@ int Process::start()
     // add null pointer at the end
     argv.push_back(nullptr);
 
+    int pipefd[2];
+    if (pipe(pipefd) != 0)
+    {
+        return -1;
+    }
+
     pid_t pid = fork();
 
     if (pid < 0)
