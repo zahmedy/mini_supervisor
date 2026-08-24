@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <fcntl.h>
 
 Process::Process(std::string procName, std::string procCommand, int restartLimit)
     : name_(procName), command_(procCommand), limit_(restartLimit) {}
@@ -66,6 +67,9 @@ int Process::start()
     else if (pid == 0)
     {
         close(pipefd[0]);
+        // Close write fd 1 if execution start
+        // instead of waiting for exevp to finish
+        fcntl(pipefd[1], F_SETFD, FD_CLOEXEC);
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
