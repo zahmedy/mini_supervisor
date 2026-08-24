@@ -69,8 +69,8 @@ int Process::start()
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
-        write(pipefd[1], "failed", -1);
-
+        write(pipefd[1], "f", 1);
+        close(pipefd[1]);
         // if execvp return an error has occured
         _exit(127);
     }
@@ -80,11 +80,12 @@ int Process::start()
         pid_ = pid;
         char buf;
         close(pipefd[1]);
-        read(pipefd[0], &buf, 0);
+        read(pipefd[0], &buf, 1);
         if (buf)
         {
             return -1;
         }
+        close(pipefd[0]);
         return 0;
     }
 }
