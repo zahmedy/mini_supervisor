@@ -26,4 +26,5 @@ public:
 
     // Methods
     int start();
+    int wait();
 };

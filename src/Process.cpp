@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 Process::Process(std::string procName, std::string procCommand, int restartLimit)
     : name_(procName), command_(procCommand), limit_(restartLimit) {}
@@ -31,6 +32,9 @@ int Process::get_pid() const
     return pid_;
 }
 
+//
+// Start begins
+//
 int Process::start()
 {
     std::stringstream ss(command_);
@@ -90,6 +94,17 @@ int Process::start()
             return -1;
         }
         close(pipefd[0]);
-        return 0;
+        return Process::wait();
     }
+}
+//
+// Start ends
+//
+
+int Process::wait()
+{
+    int status;
+    pid_t result = waitpid(pid_, &status, 0);
+    std::cout << status << "\n.";
+    return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
 }
