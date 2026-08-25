@@ -94,7 +94,7 @@ int Process::start()
             return -1;
         }
         close(pipefd[0]);
-        return Process::wait();
+        return 0;
     }
 }
 //
@@ -105,6 +105,9 @@ int Process::wait()
 {
     int status;
     pid_t result = waitpid(pid_, &status, 0);
-    std::cout << status << "\n.";
+    if (result < 0)
+    {
+        return -1;
+    }
     return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
 }
