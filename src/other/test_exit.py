@@ -1,5 +1,6 @@
 import sys
 def main():
-    exit(42)
+    while True:
+        continue
 if __name__ == "__main__":
     main()

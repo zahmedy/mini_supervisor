@@ -133,21 +133,22 @@ int Process::wait()
 int Process::run()
 {
     int stat = Process::start();
-    int waited = Process::wait();
     if (stat < 0)
     {
         // if the command itself failed to start, just return
+        std::cout << "Unrunable command, exiting..." << "\n";
         return stat;
     }
-    int restartCount_;
+    int waited = Process::wait();
+    int restartCount_ = 0;
     while (restartCount_ < limit_)
     {
         if (waited < 0)
         {
             std::cout << "Process got signal: restarting..";
             restartCount_ += 1;
-            int stat = Process::start();
-            int waited = Process::wait();
+            stat = Process::start();
+            waited = Process::wait();
         }
         else
         {
