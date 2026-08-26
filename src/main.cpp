@@ -17,5 +17,6 @@ int main()
         return stat;
     }
     std::cout << "Process: " << root.get_name() << " ran." << "\n";
+    std::cout << "Process's wait status: " << waited << "\n";
     return stat;
 }

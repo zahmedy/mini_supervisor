@@ -109,5 +109,9 @@ int Process::wait()
     {
         return -1;
     }
+    if (status < 0)
+    {
+        return -1;
+    }
     return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
 }
