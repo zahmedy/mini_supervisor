@@ -106,12 +106,13 @@ int Process::wait()
     int status;
     pid_t result = waitpid(pid_, &status, 0);
     if (result < 0)
-    {
         return -1;
-    }
-    if (status < 0)
-    {
-        return -1;
-    }
-    return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
+    if WIFEXITED (status)
+        return WEXITSTATUS(status);
+
+    if WIFSIGNALED (status)
+        if WTERMSIG (status)
+            return status;
+
+    return -1;
 }
