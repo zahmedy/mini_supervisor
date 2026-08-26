@@ -4,8 +4,8 @@
 
 int main()
 {
-    std::string procName = "sleep";
-    std::string procCommand = "sleep 142";
+    std::string procName = "exit";
+    std::string procCommand = "sh -c exit 42";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.start();
@@ -13,7 +13,6 @@ int main()
     if (stat < 0)
     {
         std::cout << "Process: " << root.get_name() << " failed to start." << "\n";
-        return stat;
     }
     if (waited < 0)
     {
@@ -33,8 +32,8 @@ int main()
         {
             std::cout << "Process: " << root.get_name() << " got aborted." << "\n";
         }
-        else
-            std::cout << "Process: " << root.get_name() << " returned status." << waited << "\n";
+
+        std::cout << "Process: " << root.get_name() << " returned status." << waited << "\n";
     }
 
     return stat;
