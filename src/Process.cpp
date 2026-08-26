@@ -101,6 +101,9 @@ int Process::start()
 // Start ends
 //
 
+//
+// Wait begins
+//
 int Process::wait()
 {
     int status;
@@ -119,4 +122,37 @@ int Process::wait()
     }
 
     return -1;
+}
+//
+// Wait ends
+//
+
+//
+// RUn begins
+//
+int Process::run()
+{
+    int stat = Process::start();
+    int waited = Process::wait();
+    if (stat < 0)
+    {
+        // if the command itself failed to start, just return
+        return stat;
+    }
+    int restartCount_;
+    while (restartCount_ < limit_)
+    {
+        if (waited < 0)
+        {
+            std::cout << "Process got signal: restarting..";
+            restartCount_ += 1;
+            int stat = Process::start();
+            int waited = Process::wait();
+        }
+        else
+        {
+            break;
+        }
+    }
+    return waited;
 }

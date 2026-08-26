@@ -27,4 +27,5 @@ public:
     // Methods
     int start();
     int wait();
+    int run();
 };

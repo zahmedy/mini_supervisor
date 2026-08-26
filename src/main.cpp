@@ -4,38 +4,10 @@
 
 int main()
 {
-    std::string procName = "exit";
-    std::string procCommand = "python3 src/other/test_exit.py";
+    std::string procName = "sleep";
+    std::string procCommand = "sleep 60";
     int limit = 3;
     Process root(procName, procCommand, limit);
-    int stat = root.start();
-    int waited = root.wait();
-    if (stat < 0)
-    {
-        std::cout << "Process: " << root.get_name() << " failed to start." << "\n";
-    }
-    if (waited < 0)
-    {
-        if (waited == -9)
-        {
-            std::cout << "Process: " << root.get_name() << " got killed." << "\n";
-        }
-        else if (waited == -15)
-        {
-            std::cout << "Process: " << root.get_name() << " got terminated." << "\n";
-        }
-        else if (waited == -2)
-        {
-            std::cout << "Process: " << root.get_name() << " got interrupted." << "\n";
-        }
-        else if (waited == -6)
-        {
-            std::cout << "Process: " << root.get_name() << " got aborted." << "\n";
-        }
-    }
-
-    std::cout << "Child Process: " << root.get_name() << " returned status: " << waited << "\n";
-    std::cout << "Main Process: returned status: " << stat << "\n";
-
-    return stat;
+    int stat = root.run();
+    std::cout << "Process exited with: " << stat << "\n";
 }
