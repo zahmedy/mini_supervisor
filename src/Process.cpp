@@ -148,6 +148,10 @@ int Process::run()
             std::cout << "Process got signal: restarting..";
             restartCount_ += 1;
             stat = Process::start();
+            if (stat < 0)
+            {
+                return stat;
+            }
             waited = Process::wait();
         }
         else

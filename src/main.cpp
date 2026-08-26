@@ -4,8 +4,8 @@
 
 int main()
 {
-    std::string procName = "python3";
-    std::string procCommand = "python3 src/other/test_exit.py";
+    std::string procName = "sleep";
+    std::string procCommand = "sleep 120";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.run();
