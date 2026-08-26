@@ -5,7 +5,7 @@
 int main()
 {
     std::string procName = "exit";
-    std::string procCommand = "sh -c exit 42";
+    std::string procCommand = "python3 src/other/test_exit.py";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.start();
