@@ -17,19 +17,19 @@ int main()
     }
     if (waited < 0)
     {
-        if (waited == 9)
+        if (waited == -9)
         {
             std::cout << "Process: " << root.get_name() << " got killed." << "\n";
         }
-        else if (waited == 15)
+        else if (waited == -15)
         {
             std::cout << "Process: " << root.get_name() << " got terminated." << "\n";
         }
-        else if (waited == 2)
+        else if (waited == -2)
         {
             std::cout << "Process: " << root.get_name() << " got interrupted." << "\n";
         }
-        else if (waited == 6)
+        else if (waited == -6)
         {
             std::cout << "Process: " << root.get_name() << " got aborted." << "\n";
         }
