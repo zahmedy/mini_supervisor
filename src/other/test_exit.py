@@ -1,5 +1,5 @@
-
+import sys
 def main():
-    return 42
+    exit(42)
 if __name__ == "__main__":
     main()

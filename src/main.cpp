@@ -32,9 +32,10 @@ int main()
         {
             std::cout << "Process: " << root.get_name() << " got aborted." << "\n";
         }
-
-        std::cout << "Process: " << root.get_name() << " returned status." << waited << "\n";
     }
+
+    std::cout << "Child Process: " << root.get_name() << " returned status: " << waited << "\n";
+    std::cout << "Main Process: returned status: " << stat << "\n";
 
     return stat;
 }
