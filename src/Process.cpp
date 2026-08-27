@@ -145,7 +145,12 @@ int Process::run()
     int restartCount_ = 0;
     while (restartCount_ < limit_)
     {
-        if (waited < 0)
+        if (waited == -100)
+        {
+            std::cout << "Waitpid failed, exiting..." << "\n";
+            break;
+        }
+        else if (waited < 0)
         {
             std::cout << "Process got signal: restarting..";
             restartCount_ += 1;
