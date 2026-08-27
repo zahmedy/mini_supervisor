@@ -4,8 +4,8 @@
 
 int main()
 {
-    std::string procName = "sleep";
-    std::string procCommand = "sleep 120";
+    std::string procName = "cash";
+    std::string procCommand = "/tmp/crash";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.run();

@@ -107,16 +107,18 @@ int Process::start()
 int Process::wait()
 {
     int status;
+    constexpr int WAIT_ERROR = -100;
+
     pid_t result = waitpid(pid_, &status, 0);
     if (result < 0)
-        return -1;
+        return WAIT_ERROR;
 
-    if WIFEXITED (status)
+    if (WIFEXITED(status))
     {
         return WEXITSTATUS(status);
     }
 
-    if WIFSIGNALED (status)
+    if (WIFSIGNALED(status))
     {
         return -WTERMSIG(status);
     }
