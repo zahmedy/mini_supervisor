@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <cerrno>
 
 Process::Process(std::string procName, std::string procCommand, int restartLimit)
     : name_(procName), command_(procCommand), limit_(restartLimit) {}
@@ -110,6 +111,16 @@ int Process::wait()
     constexpr int WAIT_ERROR = -100;
 
     pid_t result = waitpid(pid_, &status, 0);
+
+    // if the parent got signaled, restart waitpid to conintue waiting for child
+    if (result == -1 && errno == EINTR)
+    {
+        while (result == -1 && errno == EINTR)
+        {
+            pid_t result = waitpid(pid_, &status, 0);
+        }
+    }
+
     if (result < 0)
         return WAIT_ERROR;
 
@@ -145,6 +156,7 @@ int Process::run()
     int restartCount_ = 0;
     while (restartCount_ < limit_)
     {
+        // -100 is madeup error to indiacte waitpid failed
         if (waited == -100)
         {
             std::cout << "Waitpid failed, exiting..." << "\n";
