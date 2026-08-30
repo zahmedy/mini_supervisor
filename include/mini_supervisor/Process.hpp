@@ -9,6 +9,7 @@ private:
     std::string command_;
     int limit_;
     int pid_;
+    int pgid_;
 
 public:
     // Constructer & destructer

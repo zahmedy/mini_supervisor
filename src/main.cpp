@@ -5,7 +5,7 @@
 int main()
 {
     std::string procName = "cash";
-    std::string procCommand = "/tmp/crash";
+    std::string procCommand = "sleep 30";
     int limit = 3;
     Process root(procName, procCommand, limit);
     int stat = root.run();

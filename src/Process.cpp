@@ -89,8 +89,12 @@ int Process::start()
     }
     else
     {
-        // parent
+        // If here then parent running
+
+        // Capture child's process and process group
+        // Process group == child's pid for now
         pid_ = pid;
+        pgid_ = pid;
         char buf;
         close(pipefd[1]);
         int rv = read(pipefd[0], &buf, 1);
