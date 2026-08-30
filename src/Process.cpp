@@ -75,6 +75,10 @@ int Process::start()
         // Close write fd 1 if execution start
         // instead of waiting for exevp to finish
         fcntl(pipefd[1], F_SETFD, FD_CLOEXEC);
+
+        // create child's process group to join all sub processes
+        setpgid(0, 0);
+
         // Child process: Replace address space with target binary
         execvp(argv[0], argv.data());
 
