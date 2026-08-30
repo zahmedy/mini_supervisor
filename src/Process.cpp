@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <cerrno>
+#include <signal.h>
 
 Process::Process(std::string procName, std::string procCommand, int restartLimit)
     : name_(procName), command_(procCommand), limit_(restartLimit) {}
@@ -149,7 +150,7 @@ int Process::wait()
 //
 
 //
-// RUn begins
+// Run begins
 //
 int Process::run()
 {
@@ -187,4 +188,15 @@ int Process::run()
         }
     }
     return waited;
+}
+//
+// Run ends
+//
+
+//
+// Stop begins
+//
+int Process::stop()
+{
+    return kill(-pgid_, SIGTERM);
 }

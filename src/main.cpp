@@ -1,13 +1,21 @@
 #include <iostream>
 #include <string>
+#include <unistd.h>
 #include "../include/mini_supervisor/Process.hpp"
 
 int main()
 {
-    std::string procName = "cash";
-    std::string procCommand = "sleep 30";
-    int limit = 3;
-    Process root(procName, procCommand, limit);
-    int stat = root.run();
-    std::cout << "Process exited with: " << stat << "\n";
+    Process process("test", "/tmp/Parent", 3);
+
+    process.start();
+
+    std::cout << "PID: " << process.get_pid() << "\n";
+
+    sleep(2);
+
+    process.stop();
+
+    process.wait();
+
+    return 0;
 }
