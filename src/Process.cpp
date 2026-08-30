@@ -117,7 +117,7 @@ int Process::wait()
     {
         while (result == -1 && errno == EINTR)
         {
-            pid_t result = waitpid(pid_, &status, 0);
+            result = waitpid(pid_, &status, 0);
         }
     }
 
