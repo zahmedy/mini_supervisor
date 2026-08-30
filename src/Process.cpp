@@ -153,8 +153,8 @@ int Process::run()
         return stat;
     }
     int waited = Process::wait();
-    int restartCount_ = 0;
-    while (restartCount_ < limit_)
+    int restartCount = 0;
+    while (restartCount < limit_)
     {
         // -100 is madeup error to indiacte waitpid failed
         if (waited == -100)
@@ -165,7 +165,7 @@ int Process::run()
         else if (waited < 0)
         {
             std::cout << "Process got signal: restarting..";
-            restartCount_ += 1;
+            restartCount += 1;
             stat = Process::start();
             if (stat < 0)
             {
