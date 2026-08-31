@@ -30,5 +30,4 @@ public:
     int start();
     int stop();
     int wait();
-    int run();
 };
