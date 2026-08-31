@@ -9,7 +9,7 @@ private:
 
 public:
     // Constructor
-    Supervisor(Process process);
+    Supervisor(Process process, int limit);
 
     // Steers
     void set_limit(int limit);

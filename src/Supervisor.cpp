@@ -1,7 +1,7 @@
 #include "../include/mini_supervisor/Supervisor.hpp"
 #include <iostream>
 
-Supervisor::Supervisor(Process process) : process_(process) {};
+Supervisor::Supervisor(Process process, int limit) : process_(process), limit_(limit) {};
 
 Process Supervisor::get_process()
 {
@@ -33,12 +33,15 @@ int Supervisor::run()
         {
             std::cout << "process got signal from kernel, restarting...\n";
             start_rc = process_.start();
+            restartCount += 1;
 
             if (start_rc < 0)
             {
                 std::cout << "failed to start the process, exiting\n";
                 return -1;
             }
+
+            wait_rc = process_.wait();
         }
         else
         {
