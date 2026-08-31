@@ -34,6 +34,10 @@ int Process::get_pid() const
     return pid_;
 }
 
+int Process::get_pgid() const
+{
+    return pgid_;
+}
 //
 // Start begins
 //
