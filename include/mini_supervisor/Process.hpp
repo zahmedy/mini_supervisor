@@ -7,7 +7,6 @@ class Process
 private:
     std::string name_;
     std::string command_;
-    int limit_;
     int pid_;
     int pgid_;
 
@@ -19,12 +18,10 @@ public:
     // Getters
     std::string get_name() const;
     std::string get_command() const;
-    int get_limit() const;
     int get_pid() const;
     int get_pgid() const;
 
     // Setters
-    void set_limit(int limit);
 
     // Methods
     int start();

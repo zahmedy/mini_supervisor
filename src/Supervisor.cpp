@@ -22,7 +22,7 @@ int Supervisor::run()
     int restartCount = 0;
 
     // keep starting the process based on set limit
-    while (restartCount < process_.get_limit())
+    while (restartCount < limit_)
     {
         if (wait_rc == -100)
         {
