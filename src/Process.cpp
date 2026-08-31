@@ -10,7 +10,7 @@
 #include <signal.h>
 
 Process::Process(std::string procName, std::string procCommand, int restartLimit)
-    : name_(procName), command_(procCommand), limit_(restartLimit) {}
+    : name_(procName), command_(procCommand), limit_(restartLimit), pid_(-1), pgid_(-1) {}
 
 Process::~Process() {}
 
