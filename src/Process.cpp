@@ -154,50 +154,6 @@ int Process::wait()
 //
 
 //
-// Run begins
-//
-int Process::run()
-{
-    int stat = Process::start();
-    if (stat < 0)
-    {
-        // if the command itself failed to start, just return
-        std::cout << "Unrunable command, exiting..." << "\n";
-        return stat;
-    }
-    int waited = Process::wait();
-    int restartCount = 0;
-    while (restartCount < limit_)
-    {
-        // -100 is madeup error to indiacte waitpid failed
-        if (waited == -100)
-        {
-            std::cout << "Waitpid failed, exiting..." << "\n";
-            break;
-        }
-        else if (waited < 0)
-        {
-            std::cout << "Process got signal: restarting..";
-            restartCount += 1;
-            stat = Process::start();
-            if (stat < 0)
-            {
-                return stat;
-            }
-            waited = Process::wait();
-        }
-        else
-        {
-            break;
-        }
-    }
-    return waited;
-}
-//
-// Run ends
-//
-
-//
 // Stop begins
 //
 int Process::stop()
