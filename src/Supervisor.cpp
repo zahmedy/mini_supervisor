@@ -3,7 +3,7 @@
 
 Supervisor::Supervisor(Process process, int limit) : limit_(limit)
 {
-    processes_.push_back(process);
+    processes_.push_back(std::move(process));
 };
 
 std::vector<Process> Supervisor::get_processes()
