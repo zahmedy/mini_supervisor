@@ -6,7 +6,7 @@ Supervisor::Supervisor(Process process, int limit) : limit_(limit)
     processes_.push_back(std::move(process));
 };
 
-std::vector<Process> Supervisor::get_processes()
+const std::vector<Process> &Supervisor::get_processes() const
 {
     return processes_;
 }
@@ -15,6 +15,7 @@ std::vector<Process> Supervisor::get_processes()
 int Supervisor::add(Process process)
 {
     processes_.push_back(std::move(process));
+    return 0;
 }
 
 // RUN
@@ -62,8 +63,8 @@ int Supervisor::run()
                 break;
             }
         }
-        return wait_rc;
     }
+    return 0;
 }
 // END RUN
 
