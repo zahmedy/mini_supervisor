@@ -1,53 +1,77 @@
 #include "../include/mini_supervisor/Supervisor.hpp"
 #include <iostream>
 
-Supervisor::Supervisor(Process process, int limit) : process_(process), limit_(limit) {};
-
-Process Supervisor::get_process()
+Supervisor::Supervisor(Process process, int limit) : limit_(limit)
 {
-    return process_;
+    processes_.push_back(process);
+};
+
+std::vector<Process> Supervisor::get_processes()
+{
+    return processes_;
 }
 
 int Supervisor::run()
 {
-    int start_rc = process_.start();
-
-    if (start_rc < 0)
+    for (Process process : processes_)
     {
-        std::cout << "Error: failed to start " << process_.get_name() << "\n";
-        return -1;
-    }
 
-    int wait_rc = process_.wait();
-    int restartCount = 0;
+        int start_rc = process.start();
 
-    // keep starting the process based on set limit
-    while (restartCount < limit_)
-    {
-        if (wait_rc == -100)
+        if (start_rc < 0)
         {
-            std::cout << "waitpid function failed, exiting...\n";
+            std::cout << "Error: failed to start " << process.get_name() << "\n";
             return -1;
         }
-        else if (wait_rc < 0)
-        {
-            std::cout << "process got signal from kernel, restarting...\n";
-            start_rc = process_.start();
-            restartCount += 1;
 
-            if (start_rc < 0)
+        int wait_rc = process.wait();
+        int restartCount = 0;
+
+        // keep starting the process based on set limit
+        while (restartCount < limit_)
+        {
+            if (wait_rc == -100)
             {
-                std::cout << "failed to start the process, exiting\n";
+                std::cout << "waitpid function failed, exiting...\n";
                 return -1;
             }
+            else if (wait_rc < 0)
+            {
+                std::cout << "process got signal from kernel, restarting...\n";
+                start_rc = process.start();
+                restartCount += 1;
 
-            wait_rc = process_.wait();
+                if (start_rc < 0)
+                {
+                    std::cout << "failed to start the process, exiting\n";
+                    return -1;
+                }
+
+                wait_rc = process.wait();
+            }
+            else
+            {
+                // Process exited normally, we're done!
+                break;
+            }
         }
-        else
+        return wait_rc;
+    }
+}
+// END RUN
+
+int Supervisor::stop_all()
+{
+    for (Process process : processes_)
+    {
+        int rc = process.stop();
+
+        if (rc != 0)
         {
-            // Process exited normally, we're done!
-            break;
+            std::cout << "Err: Failed to stop process " << process.get_name() << "\n";
+            return -1;
         }
     }
-    return wait_rc;
+
+    return 0;
 }

@@ -1,10 +1,12 @@
 #pragma once
+
 #include "./Process.hpp"
+#include <vector>
 
 class Supervisor
 {
 private:
-    Process process_;
+    std::vector<Process> processes_;
     int limit_;
 
 public:
@@ -15,8 +17,9 @@ public:
     void set_limit(int limit);
 
     // Getters
-    Process get_process();
+    std::vector<Process> get_processes();
     int get_limit() const;
-    void add();
+    int add(Process process);
     int run();
+    int stop_all();
 };
