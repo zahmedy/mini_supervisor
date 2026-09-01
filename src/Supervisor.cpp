@@ -11,9 +11,16 @@ std::vector<Process> Supervisor::get_processes()
     return processes_;
 }
 
+// ADD
+int Supervisor::add(Process process)
+{
+    processes_.push_back(std::move(process));
+}
+
+// RUN
 int Supervisor::run()
 {
-    for (Process process : processes_)
+    for (Process &process : processes_)
     {
 
         int start_rc = process.start();
@@ -60,9 +67,10 @@ int Supervisor::run()
 }
 // END RUN
 
+// STOP_ALL
 int Supervisor::stop_all()
 {
-    for (Process process : processes_)
+    for (Process &process : processes_)
     {
         int rc = process.stop();
 
@@ -75,3 +83,4 @@ int Supervisor::stop_all()
 
     return 0;
 }
+// END STOP_ALL
