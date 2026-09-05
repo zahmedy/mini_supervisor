@@ -32,7 +32,7 @@ int Supervisor::run()
             return -1;
         }
 
-        int wait_rc = process.wait();
+        // int wait_rc = process.wait();
         int restartCount = 0;
 
         // keep starting the process based on set limit
