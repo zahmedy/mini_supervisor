@@ -1,0 +1,9 @@
+shared:
+  image: busybox
+
+jobs:
+  main:
+    requires: [~pr, ~commit]
+    steps:
+      - build_binary: c++ -std=c++17 src/main.cpp src/Process.cpp -o tmp/mini_supervisor_test
+      - run_app: tmp/mini_supervisor_test
