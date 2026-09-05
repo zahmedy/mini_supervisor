@@ -1,5 +1,5 @@
 shared:
-  image: busybox
+  image: gcc:latest
 
 jobs:
   main:
