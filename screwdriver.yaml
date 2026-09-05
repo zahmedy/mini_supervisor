@@ -1,5 +1,7 @@
 shared:
   image: gcc:latest
+  environment:
+    SD_COVERAGE_PLUGIN_ENABLED: "false"
 
 jobs:
   main:
